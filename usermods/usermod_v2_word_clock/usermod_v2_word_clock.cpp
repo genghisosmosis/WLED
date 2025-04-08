@@ -10,6 +10,7 @@
  * 
  * active: enable/disable usermod
  * diplayItIs: enable/disable display of "Es ist" on the clock.
+ This version replaces the "meander" wiring for wiring Right to left meander and presents in English 
  */
 
 class WordClockUsermod : public Usermod 
@@ -28,15 +29,15 @@ class WordClockUsermod : public Usermod
     // defines for mask sizes
     #define maskSizeLeds        114
     #define maskSizeMinutes     12
-    #define maskSizeMinutesMea  12
+    #define maskSizeMinutesMea  14
     #define maskSizeHours       6
     #define maskSizeHoursMea    6
-    #define maskSizeItIs        5
+    #define maskSizeItIs        4
     #define maskSizeMinuteDots  4
 
     // "minute" masks
     // Normal wiring
-    const int maskMinutes[14][maskSizeMinutes] = 
+    const int maskMinutes[12][maskSizeMinutes] = 
     {
       {107, 108, 109,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1}, // 0 - 00
       {  7,   8,   9,  10,  40,  41,  42,  43,  -1,  -1,  -1,  -1}, // 1 - 05 fünf nach
@@ -57,20 +58,20 @@ class WordClockUsermod : public Usermod
     // Meander wiring
     const int maskMinutesMea[14][maskSizeMinutesMea] = 
     {
-      { 99, 100, 101,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1}, // 0 - 00
-      {  7,   8,   9,  10,  33,  34,  35,  36,  -1,  -1,  -1,  -1}, // 1 - 05 fünf nach
-      { 18,  19,  20,  21,  33,  34,  35,  36,  -1,  -1,  -1,  -1}, // 2 - 10 zehn nach
-      { 26,  27,  28,  29,  30,  31,  32,  -1,  -1,  -1,  -1,  -1}, // 3 - 15 viertel
-      { 11,  12,  13,  14,  15,  16,  17,  33,  34,  35,  36,  -1}, // 4 - 20 zwanzig nach
-      {  7,   8,   9,  10,  41,  42,  43,  44,  45,  46,  47,  -1}, // 5 - 25 fünf vor halb
-      { 44,  45,  46,  47,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1}, // 6 - 30 halb
-      {  7,   8,   9,  10,  33,  34,  35,  36,  44,  45,  46,  47}, // 7 - 35 fünf nach halb
-      { 11,  12,  13,  14,  15,  16,  17,  41,  42,  43,  -1,  -1}, // 8 - 40 zwanzig vor
-      { 22,  23,  24,  25,  26,  27,  28,  29,  30,  31,  32,  -1}, // 9 - 45 dreiviertel
-      { 18,  19,  20,  21,  41,  42,  43,  -1,  -1,  -1,  -1,  -1}, // 10 - 50 zehn vor
-      {  7,   8,   9,  10,  41,  42,  43,  -1,  -1,  -1,  -1,  -1}, // 11 - 55 fünf vor
-      { 26,  27,  28,  29,  30,  31,  32,  33,  34,  35,  36,  -1}, // 12 - 15 alternative viertel nach
-      { 26,  27,  28,  29,  30,  31,  32,  41,  42,  43,  -1,  -1}  // 13 - 45 alternative viertel vor
+      { 104, 105, 106, 107, 108,  109,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1}, // 0 - 00
+      { 23,  24,  25,  26,  51,  52,  53,  54, -1, -1, -1,  -1,  -1,  -1}, // 1 - 05 fünf nach
+      { 38,  39,  40,  21,  51,  52,  53,  54,  -1, -1, -1,  -1,  -1,  -1}, // 2 - 10 zehn nach
+      { 13,  14,  15,  16,  17,  18,  19,  51,  52,  53,  54, -1, -1,  -1}, // 3 - 15 viertel
+      { 27,  28,  29,  30,  31,  32,  51,  52,  53,  54, -1, -1,  -1, -1}, // 4 - 20 zwanzig nach
+      { 23, 24, 25, 26, 27, 28, 29, 30, 31,  32, 51, 52, 53, 54}, // 5 - 25 fünf vor halb
+      { 33,  34,  35,  36,  -1,  -1,  -1,  -1,  -1,  -1,  -1, -1, -1,  -1}, // 6 - 30 halb
+      { 23,  24,  25,  26,  27,  28,  29,  30,  31,  32,  42,  43, -1, -1}, // 7 - 35 fünf nach halb
+      { 23,  24,  25,  26,  27,  28,  42,  43,  -1,  -1,  -1, -1, -1,  -1}, // 8 - 40 zwanzig vor
+      { 13,  14,  15,  16,  17,  18,  42,  43,  -1,  -1,  -1, -1, -1,  -1}, // 9 - 45 dreiviertel
+      { 38,  39,  40,  42,  43,  -1,  -1,  -1,  -1,  -1,  -1, -1, -1,  -1}, // 10 - 50 zehn vor
+      {  23,   24,   25,  26,  42,  43,  -1,  -1,  -1,  -1,  -1, -1, -1,  -1}, // 11 - 55 fünf vor
+      { 26,  27,  28,  29,  30,  31,  32,  33,  34,  35,  36, -1, -1,  -1}, // 12 - 15 alternative viertel nach
+      { 26,  27,  28,  29,  30,  31,  32,  41,  42,  43, -1, -1,  -1,  -1}  // 13 - 45 alternative viertel vor
     };
 
 
@@ -95,23 +96,23 @@ class WordClockUsermod : public Usermod
     // Meander wiring
     const int maskHoursMea[13][maskSizeHoursMea] = 
     {
-      { 63,  64,  65,  -1,  -1,  -1}, // 01: ein
-      { 62,  63,  64,  65,  -1,  -1}, // 01: eins
-      { 55,  56,  57,  58,  -1,  -1}, // 02: zwei
-      { 66,  67,  68,  69,  -1,  -1}, // 03: drei
+      { 55,  56,  57,  -1,  -1,  -1}, // 01: ein
+      { 55,  56,  57,  58,  -1,  -1}, // 01: eins
+      { 66,  67,  68,  -1,  -1,  -1}, // 02: zwei
+      { 61,  62,  63,  64,  65,  -1}, // 03: drei
       { 73,  74,  75,  76,  -1,  -1}, // 04: vier
-      { 51,  52,  53,  54,  -1,  -1}, // 05: fünf
-      { 83,  84,  85,  86,  87,  -1}, // 06: sechs
-      { 88,  89,  90,  91,  92,  93}, // 07: sieben
-      { 77,  78,  79,  80,  -1,  -1}, // 08: acht
-      {103, 104, 105, 106,  -1,  -1}, // 09: neun
-      {106, 107, 108, 109,  -1,  -1}, // 10: zehn
-      { 49,  50,  51,  -1,  -1,  -1}, // 11: elf
-      { 94,  95,  96,  97,  98,  -1}  // 12: zwölf and 00: null
+      { 69,  70,  71,  72,  -1,  -1}, // 05: fünf
+      { 58,  59,  60,  -1,  -1,  -1}, // 06: sechs
+      { 94,  95,  96,  97,  98,  -1}, // 07: sieben
+      { 77,  78,  79,  80,  81,  -1}, // 08: acht
+      {44, 45, 46, 47,  -1,  -1}, // 09: neun
+      {99, 100, 101, -1,  -1,  -1}, // 10: zehn
+      { 82,  83,  84,  85,  86,  87}, // 11: elf
+      { 88,  89,  90,  91,  92,  93}  // 12: zwölf and 00: null
     };
 
     // mask "it is"
-    const int maskItIs[maskSizeItIs] = {0, 1, 3, 4, 5};
+    const int maskItIs[maskSizeItIs] = {6, 7, 9, 10};
 
     // mask minute dots
     const int maskMinuteDots[maskSizeMinuteDots] = {110, 111, 112, 113};
@@ -425,7 +426,7 @@ class WordClockUsermod : public Usermod
       top[F("active")] = usermodActive;
       top[F("displayItIs")] = displayItIs;
       top[F("ledOffset")] = ledOffset;
-      top[F("Meander wiring?")] = meander;
+      top[F("ReverseMeander wiring/eng?")] = meander;
       top[F("Norddeutsch")] = nord;
     }
 
@@ -462,7 +463,7 @@ class WordClockUsermod : public Usermod
       configComplete &= getJsonValue(top[F("active")], usermodActive);
       configComplete &= getJsonValue(top[F("displayItIs")], displayItIs);
       configComplete &= getJsonValue(top[F("ledOffset")], ledOffset);
-      configComplete &= getJsonValue(top[F("Meander wiring?")], meander);
+      configComplete &= getJsonValue(top[F("ReverseMeander wiring/eng")], meander);
       configComplete &= getJsonValue(top[F("Norddeutsch")], nord);
 
       return configComplete;
