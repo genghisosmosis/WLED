@@ -28,7 +28,7 @@ class WordClockUsermod : public Usermod
     
     // defines for mask sizes
     #define maskSizeLeds        114
-    #define maskSizeMinutes     12
+    #define maskSizeMinutes     14
     #define maskSizeMinutesMea  14
     #define maskSizeHours       6
     #define maskSizeHoursMea    6
